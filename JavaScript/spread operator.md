@@ -1,0 +1,1 @@
+The **spead operator** is part of JavaScript since ES2015 and help us "expand" an object or an array.
