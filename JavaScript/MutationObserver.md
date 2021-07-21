@@ -1,0 +1,1 @@
+This observer let's you react to changes to the DOM like attribute or text changes or elements are added or removed from a parent element.
