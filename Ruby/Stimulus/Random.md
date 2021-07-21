@@ -23,6 +23,8 @@ export default class extends Controller {
   }
 }
 ```
+> A controller adds behaviour to the element that is connected to via the `data-controller` attribute.
+
 ## Action respond to DOM Events
 One of the best feature of JS is it's ability to respond to the events we fire in the browser, after we learn how we can (automatically) connect our HTML to JS it is time to learn how to fire some fns or methods.
 
