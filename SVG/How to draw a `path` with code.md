@@ -16,7 +16,7 @@ Remember that the coordinates are **always unitless**.
 While creating SVG we have five line commands, the first one is the `M` (or `m` if you prefer to be relative) that allow use to move the cursor without drawing anything on it. This is pretty useful if we need to create different lines that are not connected.
 
 Little introduction an all the commands (and their syntax):
-* `M x y` (or `m dx dy`) *Move To*- takes two parameters and that defines the point were our cursor will be 
+* `M x y` (or `m dx dy`) *Move To*- takes two parameters and that defines the point were our cursor will be  ^f58ce7
 * `L x y` (or `l dx dy`) *Line To* - draw the line from where we are (specified by `M`) to where we want to go (specified by the coordinates)
 * `H x` (or `h dx`) *Horizontal Line To* - draw an horizontal line from where we are to where we want to go in the horizontal axes
 * `V y` (or `v dy`) *Vertical Line To* - draw a vertical line from where we are to where we want to go in the vertical axes
@@ -94,6 +94,9 @@ Those are some of the most complex commands because they involve a lot of math, 
 ![[svg-curve-commands.png]]
 
 ## Arc
+
+^7c4dbd
+
 At any moment you can draw 4 different arcs that connects two points, you can chose to draw a **large** or a **small** arc (with the `large-arc-flag`) and you can decide to draw a **clockwise turning** arc or a **counterclockwise turning** arc (with the `sweep-flag`).
 
 This is an image taken from [MDN article](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths):
