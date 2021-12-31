@@ -6,11 +6,10 @@ Those are the general options that you probably use most of the time with `docke
 
 ## `ls` List
 With `docker container ls` we see all the active containers. As in Linux if you want see also the previously ran containers we can add an additional option `docker container ls -a`
-## `run`
+## `run` Run
 As for the [[docker image]] this command let us run a container with the image specified as the last option of the command
 ### `-it` Interactive
 This option allow us to make the container interactive so it is able to listen for standard command as *Ctrl+C*, terminal colors and set up the terminal to be responsive among others. Generally is always a good idea to use `-it`.
-
 ### `-p` Ports
 It allows us to specify how to publish the port of the container to the host. Generally we match them indicating the container port and the host one separated by comma: `-p 5000:5000`
 But you can also let Docker **randomly pick the port** that we will use in the host by specify only the port of the container `-p 5000`.
@@ -42,7 +41,9 @@ If we will use `docker container inspect <container_name>` we should see inside 
 	}
 ],
 ```
-## `logs` Logs
+### `--net` Network
+Allow to connect a container to a custom network, this is really useful since we can create multiple containers that talks to each other. For example a Rails container that talks with a PostgreSQL as we do in our work. While using `docker container run` you can add `--net <network_name>` and you'll connect that container into the network.
+## `logs` Logs 
 You can check the logs of your container any time you want, you just need to use `docker logs <container_name>` and it will show to you all the logs that your application has produced. This command will exit automatically once it has listed all the logs.
 ### `-f`
 if you want to keep it open and see each message as they come all you need to do is to add `-f` to the command and it will behave like the `tail` unix command.
@@ -52,3 +53,5 @@ Return usage metrics all the containers that are running.
 You can manually stop the container providing the container name to this `stop` command.
 ## `inspect` Inspect
 This useful command let us know many information about the container we specify by its name as last parameter. 
+## `exec` Run command
+With `docker container run [options] <container_name> <command>` you're able to run the `<command>` inside the container you specify. Generally this is used in combination of `-it` since you want to have an *interactive* terminal able to run your Linux commands.
