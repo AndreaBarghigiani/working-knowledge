@@ -1,4 +1,6 @@
-Once you have some models to play with, in OddLand we use Docker so once you opened a bash into the container the `rails` command is under `bin/rails` and to create a model you have to type: `bin/rails g model User name:string email:string`.
+To create a model we can use the generator: `bin/rails g model User name:string email:string`. 
+
+In OddLand we use Docker so rememeber to open a bash into the container the `rails` command is under `bin/rails` and to create a model you have to type: 
 
 This creates a table in your database that looks like this
 ```ruby
@@ -29,5 +31,4 @@ Or you can create with a one-liner with `create`:
 ```bash
 user_2 = User.create(name: 'Paola', email: 'degiovanni@gmail.com')
 ```
->> We store the returning object of `save` (ran behind the scenes by `create`) to `user_2` but just for using it on the fly.
-
+> We store the returning object of `save` (ran behind the scenes by `create`) to `user_2` but just for using it on the fly.

@@ -27,3 +27,5 @@ peolple.sum { |person| person.age }
 # Shortcut
 people.sum(&:age)
 ```
+# Deep Dive
+- [Ruby Structs](https://www.alchemists.io/articles/ruby_structs/)
