@@ -9,6 +9,8 @@ I believe this should be an easy one since the containers should be:
 * *ruby*
 * *postgres*
 
+Check out [alpine ruby image](https://github.com/bkuhlmann/docker-alpine-ruby)
+
 # Random notes 
 Taken while making experience with Docker for Rails Developers.
 
@@ -48,7 +50,7 @@ Once we build the previous Image, it's time to `run` it and launch our `rails s`
 But we can be even more clever and let the container run `rails s` whenever we start it, we just need to edit the `Dockerfile` and add the following line:
 `CMD ["bin/rails", "s", "-b", "0.0.0.0"]`
 
-#### Managing Containers in a Compose
+## Managing Containers with Compose
 When we use Compose we're able to handle the running status of each single service, aka the containers we're running in it.
 ![[simplified-container-lifecycle.png]]
 
@@ -57,12 +59,100 @@ When we use Compose we're able to handle the running status of each single servi
 * `docker compose start` - will start all the services in `docker-compose.yml` but is able also to start single ones if you provide to it the `<service_name>`
 * `docker compose restart` - useful if you have applied some changes and want to restart all the services without manually `stop` and `start` them. As the previous, if you provide a `<service_name>` it will restart just that one otherwise it'll restart all of them.
 
-##### Additional info about `docker compose up`
+#### Orchestrate different containers
+In `docker-compose.yml` we're able to list all the *services* (the components of my app as server web, database...) and describe how they play togheter.
 
+```yaml
+version: "3"
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+```
+In this case we list a single service that we named `web`. We tell Compose that the image this container is based on is described in `Dockerfile` with `build: .` and that from this container the port `3000` will be forwarded .
+> *Remember:* you can do the same with `docker run`, for example you forward the port with `-p 3000:3000`, but it will be less repeatable because you should do it for each container in the application,
+
+`docker compose up` will run each service in order and will `build` a container only if does not find one, but it'll also connect all the containers to the same network giving us helpful commands and convention to simplify the process.
+##### Use an existing image to build from
+We saw how the `web` service gets `build` from the `Dockerfile` sitting in the folder but most of the time we need to use custom images mantained by the community (or ourself).
+
+To do so we'll not use the `build` command for the service, we simply add an `image` and pull it from the Hub. For example here's how we could add a Redis server for our app:
+```yaml
+version: "3"
+
+services:
+  # Other services
+  redis:
+   image: redis
+```
+##### Mounting volumes
+In order to share the files in your folder you must mount a volume, with `docker-compose.yml` this is as simple as to add a new configuration option `volumes`.
+```yaml
+version: "3"
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+```
 
 #### Differences between `exec` and `run`
 With `run` you will run a totally separated Container, even if one it is already running; while `exec` is able to run the command that we provide inside the Container that's running.
+#### Share ENV variables
+Even if it's not the most secure approach we can share ENV variables right inside our `docker-compose.yml` file.
 
+For example, when we build the PostgreSQL image we can set up the username, password and other right passing the `environment`:
+```yaml
+version: "3"
+
+services:
+  # Other services
+  database:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: some-long-psw
+      POSTGRES_DB: dockerized_r7_development
+```
+At the same time we can pass the same variables to a different service that needs them in order to access. For example our Rails app, the container running it, must access to the database that is defined as a separate service (aka container) that it's connected to the same network.
+```yaml
+version: "3"
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+    environment:
+      DATABASE_HOST: database
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: some-long-psw
+      POSTGRES_DB: dockerized_r7_development
+  # Other services
+```
+Now all we need is to use them right inside the `defaul` connection settings stored in `config/database.yml`:
+```yaml
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: <%= ENV.fetch("DATABASE_HOST") %>
+  username: <%= ENV.fetch("POSTGRES_USER") %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
+  database: <%= ENV.fetch("POSTGRES_DB") %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  variables:
+    statement_timeout: 5000d
+
+development:
+  <<: *default
+```
 ## Steps for Dummies
 This is the collection of steps I took to generate my dev env:
 ### 1. Install Rails

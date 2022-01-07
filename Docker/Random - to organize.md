@@ -1,4 +1,4 @@
-dock# General Knowledge
+# General Knowledge
 A running instance of an image is called *container*. 
 
 Those are two different things, a **Docker Image** is a combination of filesystem and parameters, you can see like a package able to run anything you need or a factory to build containers. An image it does not have **any state** and once build it **never changes**, it is something that you can download, build and run.
@@ -17,6 +17,20 @@ You can easily remember this in a single option `-it` and imagine that the meani
 Sometime is useful to have our own Images that we can use to create custom Containers. If you create a `Dockerfile` you have to generate the Image or, better yet, **build** it.
 
 We can build an Image with `docker build [options] /path/to/build/dir`
+
+## Tag Images
+In order to avoid the creation of IDs while building your images you can **tag** them and make it easy to recall them later.
+
+You can do this after you've build the image:
+```
+docker build .
+docker tag <ID_container> tag_name:version
+```
+Or you can do this right at build time:
+```
+docker build -t tag_name:version .
+```
+Remember that `version` is totally optional.
 # Volumes
 A volume let's you to clone a directory that lives inside your container with one that is available on your system, so you'll be able to apply changes and save them for later use.
 
