@@ -1,0 +1,1 @@
+Bitcoin get transfer only to Bitcoin addresses, so we need to convert to WBTC, the wrapped version
