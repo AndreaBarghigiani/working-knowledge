@@ -30,7 +30,7 @@ As we can see this custom Hook `useLocalStorageState` gets two parameters:
 * a `key` that will identify the value stored in `localStorage`
 * a `defaultValue` that we initialize with an empty string and will identify the value that we need to store in `localStorage` for the specified string
 
-Note that this custom Hook is behaving similarly to the built-in [[React.useState()|useState]] Hook since is returning an array where the first value is the actual value of the state and the second one is the updater fn.
+Note that this custom Hook is behaving similarly to the built-in [[useState()|useState]] Hook since is returning an array where the first value is the actual value of the state and the second one is the updater fn.
 
 Once this custom Hook is in place and imported within our component we can start to use it as follow:
 ```js

@@ -1,5 +1,5 @@
 The `key` prop is a special functionality in React that helps the library understand what has changed in a generated JSX. I am talking about generated JSX because the following list are different even if the output HTML looks the same.
-```js
+```jsx
 // Assume we are inside a component
 
 // I am returning a full list
@@ -17,7 +17,7 @@ const elements = [ 'One', 'Two', 'Three' ];
 	{elements.map( el => <li>{el}</li>)}
 </ul>
 ```
-The main difference here is that for React the first example is just a [[React.createElement()]] with HTML in it instead the second one is an array that generates an element, calls [[React.createElement()]], for each item.
+The main difference here is that for React the first example is just a [[createElement()]] with HTML in it instead the second one is an array that generates an element, calls [[createElement()]], for each item.
 
 In order to help React know which element we are working with is always a best idea to add an unique `key` prop that also helps it increase the performances of our code, besides removing some silly errors when React guess badly 😉
 

@@ -1,0 +1,1 @@
+Most of the time having a `console.log()` from React is kinda hard but you can check the data you get from any call if you use `JSON.stringify()` in the view.
