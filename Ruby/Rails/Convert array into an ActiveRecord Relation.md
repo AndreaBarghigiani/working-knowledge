@@ -1,2 +1,0 @@
-Depending on the kind of operation you run with your models it happen that you get a collection of fields instead of the actual association you're looking for, let's say that in my use case I am working on a [customized list of radio buttons]() and since my use of 
-#activerecord

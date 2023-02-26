@@ -1,0 +1,2 @@
+- for the `Image` component if you want to render a remote image you have to add the domain of the image inside the `nextjs.config.js` file.
+- we can make sure to not have duplicates inside the `Head` component by defining a `key` inside each element. The last one will be the one shown
