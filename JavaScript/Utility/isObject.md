@@ -1,4 +1,6 @@
 Checks if the passed argument is an object or not.
 ```js
-const isObject = (obj) => obj?.toString() === "[object Object]";
+const isObject = (value) => {
+  return !!(value && typeof value === "object" && !Array.isArray(value));
+};
 ```

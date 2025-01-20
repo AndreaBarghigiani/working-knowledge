@@ -16,7 +16,7 @@ For this reason I preferred search the index of `(` in order to remove the remai
 ```js
 const indexRemove = newReport.name.indexOf('(');
 ```
-Once we got the index I can remove it:
+Once we get the index I can remove it:
 ```js
 const newString = string.substring(0, indexRemove);
 ```
